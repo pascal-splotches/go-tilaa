@@ -5,7 +5,7 @@ TODO: Put more badges here.
 
 > Tilaa API Client written in Go
 
-go-tilaa is a Go library for managing your [Tilaa](https://www.tilaa.com) Services. It currently allows you to manage your Virtual Machines, Snapshots, Metadata, SSH Keys and more through a simple interface. Currently the library implements v1 of the [Tilaa API](https://www.tilaa.com/en/api/docs)
+go-tilaa is a Go library for managing your [Tilaa](https://www.tilaa.com) Services. It currently allows you to manage your Virtual Machines, Snapshots, Metadata, SSH Keys and more through a simple interface. Currently the library implements v1 of the [Tilaa API](https://www.tilaa.com/en/api/docs).
 
 ## Table of Contents
 
