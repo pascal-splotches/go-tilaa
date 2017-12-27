@@ -1,12 +1,12 @@
 package go_tilaa
 
 import (
+	"encoding/json"
+	"fmt"
+	"io"
 	"net/http"
 	"net/url"
-	"encoding/json"
 	"strings"
-	"io"
-	"fmt"
 )
 
 const (
@@ -91,7 +91,7 @@ func (client *Client) newRequest(method string, path string, body io.Reader, con
 	path = fmt.Sprintf("%s/%s", ApiVersion, path)
 
 	relativePath := &url.URL{Path: path}
-	requestUrl   := client.BaseUrl.ResolveReference(relativePath)
+	requestUrl := client.BaseUrl.ResolveReference(relativePath)
 
 	request, err := http.NewRequest(method, requestUrl.String(), body)
 
