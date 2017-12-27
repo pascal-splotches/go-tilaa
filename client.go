@@ -140,8 +140,8 @@ func (client *Client) do(request *http.Request, result interface{}) (*http.Respo
 type ResponseStatus string
 
 const (
-	ResponseOk    = "OK"
-	ResponseError = "ERROR"
+	ResponseOk    ResponseStatus = "OK"
+	ResponseError ResponseStatus = "ERROR"
 )
 
 type StatusResponse struct {
