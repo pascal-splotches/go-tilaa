@@ -120,12 +120,12 @@ func (client *Client) do(request *http.Request, result interface{}) (*http.Respo
 
 	defer response.Body.Close()
 
-	if response.StatusCode == http.StatusUnauthorized || response.StatusCode == http.StatusForbidden {
+	if response.StatusCode == http.StatusUnauthorized {
 		return nil, NewInvalidCredentialsError(client.Credentials)
 	}
 
-	if response.StatusCode == http.StatusNotFound {
-		return nil, nil
+	if response.StatusCode != http.StatusOK {
+		return nil, NewApiRequestError(fmt.Sprintf("[%s] Request returned with non-200 status", response.Status))
 	}
 
 	err = json.NewDecoder(response.Body).Decode(result)
