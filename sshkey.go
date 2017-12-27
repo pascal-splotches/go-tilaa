@@ -1,10 +1,10 @@
 package go_tilaa
 
 import (
-	"time"
+	"fmt"
 	"net/url"
 	"strconv"
-	"fmt"
+	"time"
 )
 
 const sshKeyBasePath = "ssh_keys"
@@ -181,7 +181,7 @@ func (sshKey *SshKey) Delete() error {
 }
 
 func (sshKey *SshKey) Payload() *url.Values {
-	return &url.Values {
+	return &url.Values{
 		"user_id": {strconv.Itoa(sshKey.UserId)},
 		"label":   {sshKey.Label},
 		"key":     {sshKey.Key},

@@ -1,7 +1,7 @@
 # go-tilaa
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-TODO: Put more badges here.
+[![Build Status](https://travis-ci.org/pascal-splotches/go-tilaa.svg?branch=master)](https://travis-ci.org/pascal-splotches/go-tilaa)
 
 > Tilaa API Client written in Go
 

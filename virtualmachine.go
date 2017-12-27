@@ -1,11 +1,11 @@
 package go_tilaa
 
 import (
-	"net"
-	"time"
 	"fmt"
-	"strconv"
+	"net"
 	"net/url"
+	"strconv"
+	"time"
 )
 
 const virtualMachinesBasePath = "virtual_machines"
@@ -47,14 +47,13 @@ type VirtualMachine struct {
 	Created   *time.Time           `json:"created,string"`
 	Cancelled *time.Time           `json:"cancelled,string"`
 
-	client    *Client `json:"-"`
-	original  struct {
+	client   *Client `json:"-"`
+	original struct {
 		Name     string
 		Ram      int
 		Storage  int
 		Template int
 		Cpu      Cpu
-
 	} `json:"-"`
 }
 
@@ -79,8 +78,8 @@ const (
 )
 
 type Storage struct {
-	Size      int        `json:"size"`
-	Type      StorageType `json:"type"`
+	Size int         `json:"size"`
+	Type StorageType `json:"type"`
 }
 
 type NetworkFamily int
@@ -267,13 +266,13 @@ func (service *VirtualMachineService) Edit(machine *VirtualMachine) (*VirtualMac
 }
 
 func (service *VirtualMachineService) Cancel(machine *VirtualMachine, date *time.Time) (*VirtualMachine, error) {
-	payload := &url.Values {
+	payload := &url.Values{
 		"date": {date.Format("2006-01-02")},
 	}
 
 	var response StatusResponse
 
-	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id) + "/cancel"), payload, &response)
+	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id)+"/cancel"), payload, &response)
 
 	if err != nil {
 		return machine, err
@@ -291,13 +290,13 @@ func (service *VirtualMachineService) Cancel(machine *VirtualMachine, date *time
 }
 
 func (service *VirtualMachineService) UndoCancellation(machine *VirtualMachine) error {
-	payload := &url.Values {
+	payload := &url.Values{
 		"date": {"0"},
 	}
 
 	var response StatusResponse
 
-	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id) + "/cancel"), payload, &response)
+	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id)+"/cancel"), payload, &response)
 
 	if err != nil {
 		return err
@@ -313,7 +312,7 @@ func (service *VirtualMachineService) UndoCancellation(machine *VirtualMachine) 
 func (service *VirtualMachineService) GetCancelDates(machine *VirtualMachine) (*[]time.Time, error) {
 	var response CancelDatesResponse
 
-	_, err := service.client.Get(service.path(strconv.Itoa(machine.Id) + "/cancel"), &response)
+	_, err := service.client.Get(service.path(strconv.Itoa(machine.Id)+"/cancel"), &response)
 
 	if err != nil {
 		return nil, err
@@ -333,7 +332,7 @@ func (service *VirtualMachineService) RunTask(task string, machine *VirtualMachi
 
 	var response StatusResponse
 
-	_, err := service.client.Get(service.path(strconv.Itoa(machine.Id) + "/" + task), &response)
+	_, err := service.client.Get(service.path(strconv.Itoa(machine.Id)+"/"+task), &response)
 
 	if err != nil {
 		return machine, err
@@ -347,7 +346,7 @@ func (service *VirtualMachineService) RunTask(task string, machine *VirtualMachi
 }
 
 func (service *VirtualMachineService) Reinstall(machine *VirtualMachine) (*VirtualMachine, error) {
-	payload := &url.Values {
+	payload := &url.Values{
 		"template":          {strconv.Itoa(machine.Template.Id)},
 		"reinstall":         {"true"},
 		"confirm_reinstall": {"true"},
@@ -371,7 +370,7 @@ func (service *VirtualMachineService) Reinstall(machine *VirtualMachine) (*Virtu
 func (service *VirtualMachineService) CreateSnapshot(machine *VirtualMachine, name string, online bool, overwrite bool) (*Snapshot, error) {
 	// TODO: Endpoint does not return Snapshot ID after creation
 
-	payload := &url.Values {
+	payload := &url.Values{
 		"name": {name},
 	}
 
@@ -385,7 +384,7 @@ func (service *VirtualMachineService) CreateSnapshot(machine *VirtualMachine, na
 
 	var response StatusResponse
 
-	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id) + "/create_snapshot"), payload, &response)
+	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id)+"/create_snapshot"), payload, &response)
 
 	if err != nil {
 		return NewSnapshot(service.client), err
@@ -403,13 +402,13 @@ func (service *VirtualMachineService) CreateSnapshot(machine *VirtualMachine, na
 }
 
 func (service *VirtualMachineService) RestoreSnapshot(machine *VirtualMachine, snapshot *Snapshot) (*VirtualMachine, error) {
-	payload := &url.Values {
+	payload := &url.Values{
 		"snapshot": {strconv.Itoa(snapshot.Id)},
 	}
 
 	var response StatusResponse
 
-	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id) + "/restore_snapshot"), payload, &response)
+	_, err := service.client.Post(service.path(strconv.Itoa(machine.Id)+"/restore_snapshot"), payload, &response)
 
 	if err != nil {
 		return machine, err
@@ -583,7 +582,7 @@ func (machine *VirtualMachine) RestoreSnapshot(snapshot *Snapshot) error {
 }
 
 func (machine *VirtualMachine) Payload() *url.Values {
-	return &url.Values {
+	return &url.Values{
 		"name":         {machine.Name},
 		"dns_name":     {machine.Network[0].DnsName},
 		"ram":          {strconv.Itoa(machine.Ram)},
@@ -608,18 +607,18 @@ func (machine *VirtualMachine) Refresh() error {
 		return err
 	}
 
-	machine.Name      = update.Name
-	machine.Cpu       = update.Cpu
-	machine.Ram       = update.Ram
-	machine.Storage   = update.Storage
-	machine.Site      = update.Site
-	machine.Template  = update.Template
-	machine.Network   = update.Network
-	machine.Admin     = update.Admin
-	machine.Managed   = update.Managed
-	machine.Locked    = update.Locked
-	machine.Status    = update.Status
-	machine.Created   = update.Created
+	machine.Name = update.Name
+	machine.Cpu = update.Cpu
+	machine.Ram = update.Ram
+	machine.Storage = update.Storage
+	machine.Site = update.Site
+	machine.Template = update.Template
+	machine.Network = update.Network
+	machine.Admin = update.Admin
+	machine.Managed = update.Managed
+	machine.Locked = update.Locked
+	machine.Status = update.Status
+	machine.Created = update.Created
 	machine.Cancelled = update.Cancelled
 
 	return nil
@@ -734,7 +733,7 @@ func isValidTask(task string) bool {
 		TaskRestart,
 		TaskRescue,
 		TaskPowerOff:
-			return true
+		return true
 	}
 
 	return false
