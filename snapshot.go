@@ -1,10 +1,10 @@
 package go_tilaa
 
 import (
-	"strconv"
 	"fmt"
-	"time"
 	"net/url"
+	"strconv"
+	"time"
 )
 
 const snapshotBasePath = "snapshots"
@@ -102,7 +102,7 @@ func (service *SnapshotService) View(snapshotId int) (*Snapshot, error) {
 }
 
 func (service *SnapshotService) Rename(snapshot *Snapshot, name string) (*Snapshot, error) {
-	payload := &url.Values {
+	payload := &url.Values{
 		"name": {name},
 	}
 

@@ -20,15 +20,15 @@ func createClient(username string, password string) *Client {
 
 	client.SetBasicAuth(username, password)
 	client.BaseUrl, _ = url.Parse(BaseUrl)
-	client.UserAgent  = UserAgent + "/" + ApiVersion
+	client.UserAgent = UserAgent + "/" + ApiVersion
 
 	client.VirtualMachine = &VirtualMachineService{client: client}
-	client.Snapshot       = &SnapshotService{client: client}
-	client.Preset         = &PresetService{client: client}
-	client.Template       = &TemplateService{client: client}
-	client.Site           = &SiteService{client: client}
-	client.Metadata       = &MetadataService{client: client}
-	client.SshKey         = &SshKeyService{client: client}
+	client.Snapshot = &SnapshotService{client: client}
+	client.Preset = &PresetService{client: client}
+	client.Template = &TemplateService{client: client}
+	client.Site = &SiteService{client: client}
+	client.Metadata = &MetadataService{client: client}
+	client.SshKey = &SshKeyService{client: client}
 
 	return client
 }

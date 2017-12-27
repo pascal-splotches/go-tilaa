@@ -1,10 +1,10 @@
 package go_tilaa
 
 import (
-	"time"
+	"fmt"
 	"net/url"
 	"strconv"
-	"fmt"
+	"time"
 )
 
 const metadataBasePath = "metadata"
@@ -186,7 +186,7 @@ func (metadata *Metadata) Delete() error {
 }
 
 func (metadata *Metadata) Payload() *url.Values {
-	return &url.Values {
+	return &url.Values{
 		"name":      {metadata.Name},
 		"user_data": {metadata.UserData},
 	}
