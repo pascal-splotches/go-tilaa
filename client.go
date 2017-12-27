@@ -48,6 +48,10 @@ type BasicAuth struct {
 	Password string
 }
 
+func New(username string, password string) *Client {
+	return createClient(username, password)
+}
+
 func (client *Client) SetBasicAuth(username string, password string) {
 	client.Credentials.UserName = username
 	client.Credentials.Password = password

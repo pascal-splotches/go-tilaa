@@ -7,10 +7,6 @@ import (
 
 var DefaultClient *Client
 
-func New(username string, password string) *Client {
-	return createClient(username, password)
-}
-
 func SetBasicAuth(username string, password string) {
 	DefaultClient.SetBasicAuth(username, password)
 }
